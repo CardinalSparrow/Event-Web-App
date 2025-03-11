@@ -4,7 +4,6 @@ import axios from "axios";
 const url =
   "https://my-json-server.typicode.com/Code-Pop/Touring-Vue-Router/events";
 
-// Define the expected event structure
 export interface Event {
   id: number;
   category: string;
@@ -38,6 +37,6 @@ export const useEvents = (
   return useQuery<Event[], Error>({
     queryKey: ["events", page, search, petsAllowed],
     queryFn: () => fetchEvents(page, search, petsAllowed),
-    keepPreviousData: true, // ✅ Prevents flickering when changing pages
+    keepPreviousData: true,
   });
 };

@@ -18,7 +18,6 @@ interface Event {
   organizer: string;
 }
 
-// Fetch event by ID with proper typing
 const fetchEventById = async (id?: string): Promise<Event> => {
   if (!id) throw new Error("Invalid event ID");
   const { data } = await axios.get<Event>(`${url}/${id}`);
@@ -28,7 +27,6 @@ const fetchEventById = async (id?: string): Promise<Event> => {
 const EventDetails = () => {
   const { id } = useParams<{ id: string }>();
 
-  // Explicitly define `Event` as the expected data type
   const {
     data: event,
     isLoading,
@@ -36,14 +34,13 @@ const EventDetails = () => {
   } = useQuery<Event, Error>({
     queryKey: ["event", id],
     queryFn: () => fetchEventById(id),
-    enabled: !!id, // Ensures the query runs only if `id` exists
+    enabled: !!id,
   });
 
   if (isLoading) return <p className="text-center">Loading event details...</p>;
   if (error)
     return <p className="text-center text-red-500">Error loading event.</p>;
 
-  //Ensure `event` exists before rendering details
   if (!event) return <p className="text-center">Event not found.</p>;
 
   return (
